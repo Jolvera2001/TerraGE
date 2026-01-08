@@ -1,0 +1,5 @@
+﻿{
+    "name": "Hello world",
+    "description": "This should render properly",
+    "texture": "test.png"
+}
