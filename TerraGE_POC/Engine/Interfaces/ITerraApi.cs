@@ -8,9 +8,10 @@ public interface ITerraApi
     public Table LoadJson(string path);
     
     // ***********  ENTITY RELATED  ***********
-    public void CreateEntity(Table entity);
-    public Entity GetEntity(Guid id);
-    public void DestroyEntity(Guid id);
+    public Entity CreateEntity(string id);
+    public Entity CreateEntity(Table? properties, string id);
+    public Entity? GetEntity(string id);
+    public void DestroyEntity(string id);
     public object GetProperty(Entity entity, string property);
     public void SetProperty(Entity entity, string property, object value);
     

@@ -10,6 +10,7 @@ public partial class TerraApi : ITerraApi
     private readonly Script _lua;
     private string _dataPath;
     private Dictionary<string, List<DynValue>> _eventSubscribers = new();
+    private Dictionary<string, Entity> _entities = new();
 
     public TerraApi(Script lua, string dataPath = "data")
     {
@@ -25,25 +26,44 @@ public partial class TerraApi : ITerraApi
         {
             throw new FileNotFoundException($"JSON file not found: {fullPath}");
         }
-        
+
         var json = File.ReadAllText(fullPath);
         var jsonDoc = JsonDocument.Parse(json);
         return ConvertToTable(jsonDoc.RootElement);
     }
 
-    public void CreateEntity(Table entity)
+    public Entity CreateEntity(string id)
     {
-        throw new NotImplementedException();
+        return CreateEntity(null, id);
     }
 
-    public Entity GetEntity(Guid id)
+    public Entity CreateEntity(Table? properties, string id)
     {
-        throw new NotImplementedException();
+        var entity = new Entity(_lua, id);
+
+        if (properties != null)
+        {
+            foreach (var pair in properties.Pairs)
+            {
+                entity.Properties[pair.Key] = pair.Value;
+            }
+        }
+        
+        _entities.Add(id, entity);
+        Console.WriteLine($"[Engine] Created Entity: {entity.Id}");
+        return entity;
     }
 
-    public void DestroyEntity(Guid id)
+    public Entity? GetEntity(string id)
     {
-        throw new NotImplementedException();
+        Console.WriteLine($"[Engine] Getting Entity: {id}");
+        return _entities.GetValueOrDefault(id);
+    }
+
+    public void DestroyEntity(string id)
+    {
+        _entities.Remove(id);
+        Console.WriteLine($"[Engine] Removed Entity: {id}");
     }
 
     public object GetProperty(Entity entity, string property)

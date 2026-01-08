@@ -1,16 +1,19 @@
-﻿namespace TerraGE_POC.Engine;
+﻿using MoonSharp.Interpreter;
+using TerraGE_POC.Engine.Interfaces;
 
-public class Entity : IEntity
+namespace TerraGE_POC.Engine;
+
+[MoonSharpUserData]
+public class Entity
 {
-    public string Id { get; } = Guid.NewGuid().ToString();
+    private Script _lua;
+    public string Id { get; }
+    public Table Properties { get; }
 
-    public object GetProperty(string name)
+    public Entity(Script lua, string? id = null)
     {
-        throw new NotImplementedException();
-    }
-
-    public void SetProperty(string name, object value)
-    {
-        throw new NotImplementedException();
+        _lua = lua;
+        Id = id ?? Guid.NewGuid().ToString();
+        Properties = new Table(lua);
     }
 }

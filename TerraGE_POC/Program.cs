@@ -44,7 +44,7 @@ internal static class Program
         ((ScriptLoaderBase)_lua.Options.ScriptLoader).ModulePaths =
         [
             "scripts/?.lua",
-            "scipts/?/init.lua"
+            "scripts/?/init.lua"
         ];
         
         _engine = new TerraApi(_lua, dataPath);
