@@ -1,0 +1,22 @@
+﻿[
+  {
+    "name": "wood",
+    "id": "item_1",
+    "weight": 5.0
+  },
+  {
+    "name": "stone",
+    "id": "item_2",
+    "weight": 10.0
+  },
+  {
+    "name": "iron",
+    "id": "item_3",
+    "weight": 15.0
+  },
+  {
+    "name": "gold",
+    "id": "item_4",
+    "weight": 7.5
+  }
+]
