@@ -8,12 +8,19 @@ public class Entity
 {
     private Script _lua;
     public string Id { get; }
-    public Table Properties { get; }
+    public Dictionary<string, Table> Components { get; set; }
+    public Script? ScriptInstance { get; set; }
 
-    public Entity(Script lua, string? id = null)
+    public Entity(Script lua, string? id = null, Script? associatedScript = null)
     {
         _lua = lua;
         Id = id ?? Guid.NewGuid().ToString();
-        Properties = new Table(lua);
+        ScriptInstance = associatedScript;
+        Components = new Dictionary<string, Table>();
+    }
+
+    public Script? GetScript()
+    {
+        return ScriptInstance;
     }
 }
